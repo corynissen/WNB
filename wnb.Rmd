@@ -1,0 +1,44 @@
+---
+title: "Wednesday Night Basketball Stats"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(DT)
+library(dplyr)
+```
+
+```{r data, include=FALSE, echo=FALSE}
+df <- read.csv("data/individual_scores.csv", stringsAsFactors = FALSE)
+pl_agg <- df %>%
+  group_by(Game, Player, Team) %>%
+  summarize(`Total Points` = sum(Score),
+            `Points (3s)` = sum(Score[Score == 3]),
+            `Points (2s)` = sum(Score[Score == 2]),
+            `Total Buckets` = length(Score),
+            `Total 3s` = length(Score[Score == 3]),
+            `Total 2s` = length(Score[Score == 2]))
+            
+```
+
+## Teams
+Team 1 | Team 2 | Team 3 | Team 4
+------------- | ------------- | ------------- | -------------
+Mike Brown | Tim Knight | Mike Wick | Mike Sroka
+Pat Bodame | Rubin Jefferies | Frankie Cancino | Mike Perusky
+Ryan Brown | Jon Turkowski | Andy White | Erik Villareal
+Jason Workman | Steve Fisher | Adam Boness | Brian Falotico
+Lance Johnson | Chris Truax | Danny Sackman | Matt Sroka
+Howie Meyers | Brian Hawbaker | Joel Elfering | Jon Damon
+Steve Gustafson | Jay Lerner | Cory Nissen | Ryan Christensen
+Scott Stenzel | Pat Cook | Mike Silozis | Aaron Milks
+
+
+
+
+ 
+
+
+
