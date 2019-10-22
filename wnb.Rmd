@@ -20,6 +20,32 @@ pl_agg <- df %>%
             `Total Buckets` = length(Score),
             `Total 3s` = length(Score[Score == 3]),
             `Total 2s` = length(Score[Score == 2]))
+
+get_transform <- function(df){
+  tmp <- df %>%
+    group_by(Player) %>%
+    summarize(`Points (2s)` = sum(Score[Score == 2]),
+              `Points (3s)` = sum(Score[Score == 3]),
+              `Total Points` = sum(Score)) %>%
+    t() %>%
+    as.data.frame(stringsAsFactors = FALSE)
+  #tmp <- data.frame(tmp)
+  names(tmp) <- tmp[1,]
+  tmp <- tmp[-1,]
+  return(tmp)
+}
+#by_game_lists <- 
+a <- df %>%  
+  filter(Team == 3) %>%
+    #get_transform(.)
+  group_by(Game) %>%
+  #do(get_transform(.))
+  group_map(~ get_transform(.x))
+
+
+
+
+
             
 ```
 
@@ -34,6 +60,8 @@ Lance Johnson | Chris Truax | Danny Sackman | Matt Sroka
 Howie Meyers | Brian Hawbaker | Joel Elfering | Jon Damon
 Steve Gustafson | Jay Lerner | Cory Nissen | Ryan Christensen
 Scott Stenzel | Pat Cook | Mike Silozis | Aaron Milks
+
+
 
 
 
