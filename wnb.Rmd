@@ -52,14 +52,14 @@ a <- df %>%
 ## Teams
 Team 1 | Team 2 | Team 3 | Team 4
 ------------- | ------------- | ------------- | -------------
-Mike Brown | Tim Knight | Mike Wick | Mike Sroka
-Pat Bodame | Rubin Jefferies | Frankie Cancino | Mike Perusky
-Ryan Brown | Jon Turkowski | Andy White | Erik Villareal
-Jason Workman | Steve Fisher | Adam Boness | Brian Falotico
-Lance Johnson | Chris Truax | Danny Sackman | Matt Sroka
-Howie Meyers | Brian Hawbaker | Joel Elfering | Jon Damon
-Steve Gustafson | Jay Lerner | Cory Nissen | Ryan Christensen
-Scott Stenzel | Pat Cook | Mike Silozis | Aaron Milks
+Mike B. | Tim K. | Mike W. | Mike S.
+Pat B. | Rubin J. | Frankie C. | Mike P.
+Ryan B. | Jon T. | Andy W. | Erik V.
+Jason W. | Steve F. | Adam B. | Brian F.
+Lance J. | Chris T. | Danny S. | Matt S.
+Howie M. | Brian H. | Joel E. | Jon D.
+Steve G. | Jay L. | Cory N. | Ryan C.
+Scott S. | Pat C. | Mike S. | Aaron M.
 
 
 
