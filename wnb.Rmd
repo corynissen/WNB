@@ -153,24 +153,29 @@ get_bkts_df <- function(df, team_num){
 Updated on `r Sys.time()`  
 
 ## Teams {.tabset .tabset-fade}
-
-Team 1 | Team 2 | Team 3 | Team 4
-------------- | ------------- | ------------- | -------------
-Mike B. | Tim K. | Mike W. | Mike S.
-Pat B. | Rubin J. | Frankie C. | Mike P.
-Ryan B. | Jon T. | Andy W. | Erik V.
-Jason W. | Steve F. | Adam B. | Brian F.
-Lance J. | Chris T. | Danny S. | Matt S.
-Howie M. | Brian H. | Joel E. | Jon D.
-Steve G. | Jay L. | Cory N. | Ryan C.
-Scott S. | Pat C. | Mike S. | Aaron M.
+```{r teamlist, echo=FALSE}
+teamdf <- data.frame(`Team 1` = c("Mike B.", "Pat B.", "Ryan B.", "Jason W.",
+                                  "Lance J.", "Howie M.", "Steve G.", "Scott S."),
+                     `Team 2` = c("Tim K.", "Rubin J.", "Jon T.", "Steve F.", 
+                                  "Chris T.", "Brian H.", "Jay L.", "Pat C."),
+                     `Team 3` = c("Mike W.", "Frankie C.", "Andy W.", "Adam B.",
+                                  "Danny S.", "Joel E.", "Cory N.", "Mike S."),
+                     `Team 4` = c("Mike S.", "Mike P.", "Eric V.", "Brian F.",
+                                  "Matt S.", "Jon D.", "Ryan C.", "Aaron M."),
+                     stringsAsFactors = FALSE)
+kable(teamdf, linesep = "") %>%
+  kable_styling(full_width = FALSE,
+                bootstrap_options = c("striped"), 
+                position = "left") 
+```
 
 ### Team 1 
 #### Points
 ```{r team1_pts, echo=FALSE}
 tm1_pts <- get_pts_df(df, 1)
 kable(tm1_pts, linesep = "") %>%
-  kable_styling(full_width = TRUE) %>%
+  kable_styling(full_width = TRUE,
+                bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm1_pts[tm1_pts$Date %in%
                                 unique(tm1_pts$Date)[c(TRUE, FALSE)],])),
            background = "#f8f8f8")
@@ -179,7 +184,8 @@ kable(tm1_pts, linesep = "") %>%
 ```{r team1_bkts, echo=FALSE}
 tm1_bkts <- get_bkts_df(df, 1)
 kable(tm1_bkts, linesep = "") %>%
-  kable_styling(full_width = TRUE) %>%
+  kable_styling(full_width = TRUE,
+                bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm1_bkts[tm1_bkts$Date %in%
                                 unique(tm1_bkts$Date)[c(TRUE, FALSE)],])),
            background = "#f8f8f8")
@@ -189,7 +195,8 @@ kable(tm1_bkts, linesep = "") %>%
 ```{r team2_pts, echo=FALSE}
 tm2_pts <- get_pts_df(df, 2)
 kable(tm2_pts, linesep = "") %>%
-  kable_styling(full_width = TRUE) %>%
+  kable_styling(full_width = TRUE,
+                bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm2_pts[tm2_pts$Date %in%
                                 unique(tm2_pts$Date)[c(TRUE, FALSE)],])),
            background = "#f8f8f8")
@@ -198,7 +205,8 @@ kable(tm2_pts, linesep = "") %>%
 ```{r team2_bkts, echo=FALSE}
 tm2_bkts <- get_bkts_df(df, 2)
 kable(tm2_bkts, linesep = "") %>%
-  kable_styling(full_width = TRUE) %>%
+  kable_styling(full_width = TRUE,
+                bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm2_bkts[tm2_bkts$Date %in%
                                 unique(tm2_bkts$Date)[c(TRUE, FALSE)],])),
            background = "#f8f8f8")
@@ -208,7 +216,8 @@ kable(tm2_bkts, linesep = "") %>%
 ```{r team3_pts, echo=FALSE}
 tm3_pts <- get_pts_df(df, 3)
 kable(tm3_pts, linesep = "") %>%
-  kable_styling(full_width = TRUE) %>%
+  kable_styling(full_width = TRUE,
+                bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm3_pts[tm3_pts$Date %in%
                                 unique(tm3_pts$Date)[c(TRUE, FALSE)],])),
            background = "#f8f8f8")
@@ -217,7 +226,8 @@ kable(tm3_pts, linesep = "") %>%
 ```{r team3_bkts, echo=FALSE}
 tm3_bkts <- get_bkts_df(df, 3)
 kable(tm3_bkts, linesep = "") %>%
-  kable_styling(full_width = TRUE) %>%
+  kable_styling(full_width = TRUE,
+                bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm3_bkts[tm3_bkts$Date %in%
                                 unique(tm3_bkts$Date)[c(TRUE, FALSE)],])),
            background = "#f8f8f8")
@@ -227,7 +237,8 @@ kable(tm3_bkts, linesep = "") %>%
 ```{r team4_pts, echo=FALSE}
 tm4_pts <- get_pts_df(df, 4)
 kable(tm4_pts, linesep = "") %>%
-  kable_styling(full_width = TRUE) %>%
+  kable_styling(full_width = TRUE,
+                bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm4_pts[tm4_pts$Date %in%
                                 unique(tm4_pts$Date)[c(TRUE, FALSE)],])),
            background = "#f8f8f8")
@@ -236,7 +247,8 @@ kable(tm4_pts, linesep = "") %>%
 ```{r team4_bkts, echo=FALSE}
 tm4_bkts <- get_bkts_df(df, 4)
 kable(tm4_bkts, linesep = "") %>%
-  kable_styling(full_width = TRUE) %>%
+  kable_styling(full_width = TRUE,
+                bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm4_bkts[tm4_bkts$Date %in%
                                 unique(tm4_bkts$Date)[c(TRUE, FALSE)],])),
            background = "#f8f8f8")
