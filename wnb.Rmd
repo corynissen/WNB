@@ -9,6 +9,8 @@ library(ggplot2)
 library(DT)
 library(dplyr)
 library(tidyr)
+# devtools::install_github("haozhu233/kableExtra")
+library(kableExtra)
 ```
 
 ```{r data, include=FALSE, echo=FALSE}
@@ -107,25 +109,48 @@ tm1_bkts <- tm1_bkts %>%
   replace(is.na(.), 0)
 # Overall rows...
 tm1_bkts <- rbind(tm1_bkts,
-                 c("Total", "Games W/ Pts",
-                   games_w_pts$`Games W/ Pts`[
-                     match(names(tm1_bkts)[3:ncol(tm1_bkts)], games_w_pts$Player)]),
-                 stringsAsFactors = FALSE)
-  
+                  c("Total", "Games W/ Pts",
+                  games_w_pts$`Games W/ Pts`[match(names(tm1_bkts)[3:ncol(tm1_bkts)],                           games_w_pts$Player)]),
+            stringsAsFactors = FALSE)
+
 tm1_ov_tot <- tm1_bkts %>%
   filter(Value == "Total Buckets") %>%
   select(-Date, -Value) %>%
   mutate_if(is.character, as.numeric)
 
-tm1_bkts <- rbind(tm1_bkts,
-                 c("Total", "Total Bkts", apply(tm1_ov_tot, 2, sum)),
-                 stringsAsFactors = FALSE)
+tm1_ov_2 <- tm1_bkts %>%
+  filter(Value == "Buckets (2s)") %>%
+  select(-Date, -Value) %>%
+  mutate_if(is.character, as.numeric)
+
+tm1_ov_3 <- tm1_bkts %>%
+  filter(Value == "Buckets (3s)") %>%
+  select(-Date, -Value) %>%
+  mutate_if(is.character, as.numeric)
 
 tm1_bkts <- rbind(tm1_bkts,
-                 c("Total", "Avg Bkts",
-                   round(as.numeric(tm1_bkts[nrow(tm1_bkts), (3:ncol(tm1_bkts))]) / 
-                     as.numeric(tm1_bkts[(nrow(tm1_bkts) - 1), (3:ncol(tm1_bkts))]), 1)),
-                 stringsAsFactors = FALSE)
+                  c("Total", "Total Bkts", apply(tm1_ov_tot, 2, sum)),
+            stringsAsFactors = FALSE)
+
+tm1_bkts <- rbind(tm1_bkts,
+                  c("Total", "Total 2s", apply(tm1_ov_2, 2, sum)),
+            stringsAsFactors = FALSE)
+
+tm1_bkts <- rbind(tm1_bkts,
+                  c("Total", "Total 3s", apply(tm1_ov_3, 2, sum)),
+            stringsAsFactors = FALSE)
+
+tm1_bkts <- rbind(tm1_bkts,
+                  c("Total", "Avg 2s",
+                  round(as.numeric(tm1_bkts[(nrow(tm1_bkts) - 1), (3:ncol(tm1_bkts))]) /
+                        as.numeric(tm1_bkts[(nrow(tm1_bkts) - 3), (3:ncol(tm1_bkts))]), 1)),
+            stringsAsFactors = FALSE)
+
+tm1_bkts <- rbind(tm1_bkts,
+                  c("Total", "Avg 3s",
+                  round(as.numeric(tm1_bkts[(nrow(tm1_bkts) - 1), (3:ncol(tm1_bkts))]) /
+                        as.numeric(tm1_bkts[(nrow(tm1_bkts) - 4), (3:ncol(tm1_bkts))]), 1)),
+            stringsAsFactors = FALSE)
 
 ###################################################################
 # Team 2
@@ -185,25 +210,48 @@ tm2_bkts <- tm2_bkts %>%
   replace(is.na(.), 0)
 # Overall rows...
 tm2_bkts <- rbind(tm2_bkts,
-                 c("Total", "Games W/ Pts",
-                   games_w_pts$`Games W/ Pts`[
-                     match(names(tm2_bkts)[3:ncol(tm2_bkts)], games_w_pts$Player)]),
-                 stringsAsFactors = FALSE)
-  
+                  c("Total", "Games W/ Pts",
+                  games_w_pts$`Games W/ Pts`[match(names(tm2_bkts)[3:ncol(tm2_bkts)],                           games_w_pts$Player)]),
+            stringsAsFactors = FALSE)
+
 tm2_ov_tot <- tm2_bkts %>%
   filter(Value == "Total Buckets") %>%
   select(-Date, -Value) %>%
   mutate_if(is.character, as.numeric)
 
-tm2_bkts <- rbind(tm2_bkts,
-                 c("Total", "Total Bkts", apply(tm2_ov_tot, 2, sum)),
-                 stringsAsFactors = FALSE)
+tm2_ov_2 <- tm2_bkts %>%
+  filter(Value == "Buckets (2s)") %>%
+  select(-Date, -Value) %>%
+  mutate_if(is.character, as.numeric)
+
+tm2_ov_3 <- tm2_bkts %>%
+  filter(Value == "Buckets (3s)") %>%
+  select(-Date, -Value) %>%
+  mutate_if(is.character, as.numeric)
 
 tm2_bkts <- rbind(tm2_bkts,
-                 c("Total", "Avg Bkts",
-                   round(as.numeric(tm2_bkts[nrow(tm2_bkts), (3:ncol(tm2_bkts))]) / 
-                     as.numeric(tm2_bkts[(nrow(tm2_bkts) - 1), (3:ncol(tm2_bkts))]), 1)),
-                 stringsAsFactors = FALSE)
+                  c("Total", "Total Bkts", apply(tm2_ov_tot, 2, sum)),
+            stringsAsFactors = FALSE)
+
+tm2_bkts <- rbind(tm2_bkts,
+                  c("Total", "Total 2s", apply(tm2_ov_2, 2, sum)),
+            stringsAsFactors = FALSE)
+
+tm2_bkts <- rbind(tm2_bkts,
+                  c("Total", "Total 3s", apply(tm2_ov_3, 2, sum)),
+            stringsAsFactors = FALSE)
+
+tm2_bkts <- rbind(tm2_bkts,
+                  c("Total", "Avg 2s",
+                  round(as.numeric(tm2_bkts[(nrow(tm2_bkts) - 1), (3:ncol(tm2_bkts))]) /
+                        as.numeric(tm2_bkts[(nrow(tm2_bkts) - 3), (3:ncol(tm2_bkts))]), 1)),
+            stringsAsFactors = FALSE)
+
+tm2_bkts <- rbind(tm2_bkts,
+                  c("Total", "Avg 3s",
+                  round(as.numeric(tm2_bkts[(nrow(tm2_bkts) - 1), (3:ncol(tm2_bkts))]) /
+                        as.numeric(tm2_bkts[(nrow(tm2_bkts) - 4), (3:ncol(tm2_bkts))]), 1)),
+            stringsAsFactors = FALSE)
 ###################################################################
 # Team 3
 ###################################################################
@@ -262,25 +310,48 @@ tm3_bkts <- tm3_bkts %>%
   replace(is.na(.), 0)
 # Overall rows...
 tm3_bkts <- rbind(tm3_bkts,
-                 c("Total", "Games W/ Pts",
-                   games_w_pts$`Games W/ Pts`[
-                     match(names(tm3_bkts)[3:ncol(tm3_bkts)], games_w_pts$Player)]),
-                 stringsAsFactors = FALSE)
-  
+                  c("Total", "Games W/ Pts",
+                  games_w_pts$`Games W/ Pts`[match(names(tm3_bkts)[3:ncol(tm3_bkts)],                           games_w_pts$Player)]),
+            stringsAsFactors = FALSE)
+
 tm3_ov_tot <- tm3_bkts %>%
   filter(Value == "Total Buckets") %>%
   select(-Date, -Value) %>%
   mutate_if(is.character, as.numeric)
 
-tm3_bkts <- rbind(tm3_bkts,
-                 c("Total", "Total Bkts", apply(tm3_ov_tot, 2, sum)),
-                 stringsAsFactors = FALSE)
+tm3_ov_2 <- tm3_bkts %>%
+  filter(Value == "Buckets (2s)") %>%
+  select(-Date, -Value) %>%
+  mutate_if(is.character, as.numeric)
+
+tm3_ov_3 <- tm3_bkts %>%
+  filter(Value == "Buckets (3s)") %>%
+  select(-Date, -Value) %>%
+  mutate_if(is.character, as.numeric)
 
 tm3_bkts <- rbind(tm3_bkts,
-                 c("Total", "Avg Bkts",
-                   round(as.numeric(tm3_bkts[nrow(tm3_bkts), (3:ncol(tm3_bkts))]) / 
-                     as.numeric(tm3_bkts[(nrow(tm3_bkts) - 1), (3:ncol(tm3_bkts))]), 1)),
-                 stringsAsFactors = FALSE)
+                  c("Total", "Total Bkts", apply(tm3_ov_tot, 2, sum)),
+            stringsAsFactors = FALSE)
+
+tm3_bkts <- rbind(tm3_bkts,
+                  c("Total", "Total 2s", apply(tm3_ov_2, 2, sum)),
+            stringsAsFactors = FALSE)
+
+tm3_bkts <- rbind(tm3_bkts,
+                  c("Total", "Total 3s", apply(tm3_ov_3, 2, sum)),
+            stringsAsFactors = FALSE)
+
+tm3_bkts <- rbind(tm3_bkts,
+                  c("Total", "Avg 2s",
+                  round(as.numeric(tm3_bkts[(nrow(tm3_bkts) - 1), (3:ncol(tm3_bkts))]) /
+                        as.numeric(tm3_bkts[(nrow(tm3_bkts) - 3), (3:ncol(tm3_bkts))]), 1)),
+            stringsAsFactors = FALSE)
+
+tm3_bkts <- rbind(tm3_bkts,
+                  c("Total", "Avg 3s",
+                  round(as.numeric(tm3_bkts[(nrow(tm3_bkts) - 1), (3:ncol(tm3_bkts))]) /
+                        as.numeric(tm3_bkts[(nrow(tm3_bkts) - 4), (3:ncol(tm3_bkts))]), 1)),
+            stringsAsFactors = FALSE)
 ###################################################################
 # Team 4
 ###################################################################
@@ -288,7 +359,7 @@ tm3_bkts <- rbind(tm3_bkts,
 # Points
 ###################################################################
 tm4_pts <- df %>%  
-  filter(Team == 3) %>%
+  filter(Team == 4) %>%
   group_by(Game) %>%
   group_map(~ get_points(.x)) 
 names(tm4_pts) <- unique(df$Game)
@@ -325,7 +396,7 @@ tm4_pts <- rbind(tm4_pts,
 # Buckets
 ###################################################################
 tm4_bkts <- df %>%  
-  filter(Team == 3) %>%
+  filter(Team == 4) %>%
   group_by(Game) %>%
   group_map(~ get_buckets(.x)) 
 names(tm4_bkts) <- unique(df$Game)
@@ -339,39 +410,51 @@ tm4_bkts <- tm4_bkts %>%
   replace(is.na(.), 0)
 # Overall rows...
 tm4_bkts <- rbind(tm4_bkts,
-                 c("Total", "Games W/ Pts",
-                   games_w_pts$`Games W/ Pts`[
-                     match(names(tm4_bkts)[3:ncol(tm4_bkts)], games_w_pts$Player)]),
-                 stringsAsFactors = FALSE)
-  
+                  c("Total", "Games W/ Pts",
+                  games_w_pts$`Games W/ Pts`[match(names(tm4_bkts)[3:ncol(tm4_bkts)],                           games_w_pts$Player)]),
+            stringsAsFactors = FALSE)
+
 tm4_ov_tot <- tm4_bkts %>%
   filter(Value == "Total Buckets") %>%
   select(-Date, -Value) %>%
   mutate_if(is.character, as.numeric)
 
-tm4_bkts <- rbind(tm4_bkts,
-                 c("Total", "Total Bkts", apply(tm4_ov_tot, 2, sum)),
-                 stringsAsFactors = FALSE)
+tm4_ov_2 <- tm4_bkts %>%
+  filter(Value == "Buckets (2s)") %>%
+  select(-Date, -Value) %>%
+  mutate_if(is.character, as.numeric)
+
+tm4_ov_3 <- tm4_bkts %>%
+  filter(Value == "Buckets (3s)") %>%
+  select(-Date, -Value) %>%
+  mutate_if(is.character, as.numeric)
 
 tm4_bkts <- rbind(tm4_bkts,
-                 c("Total", "Avg Bkts",
-                   round(as.numeric(tm4_bkts[nrow(tm4_bkts), (3:ncol(tm4_bkts))]) / 
-                     as.numeric(tm4_bkts[(nrow(tm4_bkts) - 1), (3:ncol(tm4_bkts))]), 1)),
-                 stringsAsFactors = FALSE)
+                  c("Total", "Total Bkts", apply(tm4_ov_tot, 2, sum)),
+            stringsAsFactors = FALSE)
 
+tm4_bkts <- rbind(tm4_bkts,
+                  c("Total", "Total 2s", apply(tm4_ov_2, 2, sum)),
+            stringsAsFactors = FALSE)
 
+tm4_bkts <- rbind(tm4_bkts,
+                  c("Total", "Total 3s", apply(tm4_ov_3, 2, sum)),
+            stringsAsFactors = FALSE)
 
-                 
-                 
-                 
+tm4_bkts <- rbind(tm4_bkts,
+                  c("Total", "Avg 2s",
+                  round(as.numeric(tm4_bkts[(nrow(tm4_bkts) - 1), (3:ncol(tm4_bkts))]) /
+                        as.numeric(tm4_bkts[(nrow(tm4_bkts) - 3), (3:ncol(tm4_bkts))]), 1)),
+            stringsAsFactors = FALSE)
 
-
-
-
-            
+tm4_bkts <- rbind(tm4_bkts,
+                  c("Total", "Avg 3s",
+                  round(as.numeric(tm4_bkts[(nrow(tm4_bkts) - 1), (3:ncol(tm4_bkts))]) /
+                        as.numeric(tm4_bkts[(nrow(tm4_bkts) - 4), (3:ncol(tm4_bkts))]), 1)),
+            stringsAsFactors = FALSE)
 ```
 
-## Teams
+## Teams {.tabset .tabset-fade}
 Team 1 | Team 2 | Team 3 | Team 4
 ------------- | ------------- | ------------- | -------------
 Mike B. | Tim K. | Mike W. | Mike S.
@@ -383,7 +466,74 @@ Howie M. | Brian H. | Joel E. | Jon D.
 Steve G. | Jay L. | Cory N. | Ryan C.
 Scott S. | Pat C. | Mike S. | Aaron M.
 
-
+### Team 1 
+#### Points
+```{r team1_pts, echo=FALSE}
+kable(tm1_pts, linesep = "") %>%
+  kable_styling(full_width = TRUE) %>%
+  row_spec(as.numeric(row.names(tm1_pts[tm1_pts$Date %in%
+                                unique(tm1_pts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8")
+```
+#### Buckets
+```{r team1_bkts, echo=FALSE}
+kable(tm1_bkts, linesep = "") %>%
+  kable_styling(full_width = TRUE) %>%
+  row_spec(as.numeric(row.names(tm1_bkts[tm1_bkts$Date %in%
+                                unique(tm1_bkts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8")
+```
+### Team 2 
+#### Points
+```{r team2_pts, echo=FALSE}
+kable(tm2_pts, linesep = "") %>%
+  kable_styling(full_width = TRUE) %>%
+  row_spec(as.numeric(row.names(tm2_pts[tm2_pts$Date %in%
+                                unique(tm2_pts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8")
+```
+#### Buckets
+```{r team2_bkts, echo=FALSE}
+kable(tm2_bkts, linesep = "") %>%
+  kable_styling(full_width = TRUE) %>%
+  row_spec(as.numeric(row.names(tm2_bkts[tm2_bkts$Date %in%
+                                unique(tm2_bkts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8")
+```
+### Team 3 
+#### Points
+```{r team3_pts, echo=FALSE}
+kable(tm3_pts, linesep = "") %>%
+  kable_styling(full_width = TRUE) %>%
+  row_spec(as.numeric(row.names(tm3_pts[tm3_pts$Date %in%
+                                unique(tm3_pts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8")
+```
+#### Buckets
+```{r team3_bkts, echo=FALSE}
+kable(tm3_bkts, linesep = "") %>%
+  kable_styling(full_width = TRUE) %>%
+  row_spec(as.numeric(row.names(tm3_bkts[tm3_bkts$Date %in%
+                                unique(tm3_bkts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8")
+```
+### Team 4 
+#### Points
+```{r team4_pts, echo=FALSE}
+kable(tm4_pts, linesep = "") %>%
+  kable_styling(full_width = TRUE) %>%
+  row_spec(as.numeric(row.names(tm4_pts[tm4_pts$Date %in%
+                                unique(tm4_pts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8")
+```
+#### Buckets
+```{r team4_bkts, echo=FALSE}
+kable(tm4_bkts, linesep = "") %>%
+  kable_styling(full_width = TRUE) %>%
+  row_spec(as.numeric(row.names(tm4_bkts[tm4_bkts$Date %in%
+                                unique(tm4_bkts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8")
+```
 
 
 
