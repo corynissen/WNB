@@ -15,7 +15,19 @@ library(kableExtra)
 
 ```{r data, include=FALSE, echo=FALSE}
 df <- read.csv("data/individual_scores.csv", stringsAsFactors = FALSE)
+tmsc <- read.csv("data/team_scores.csv", stringsAsFactors = FALSE)
 
+tm_rec <- tmsc %>%
+  filter(!is.na(teama_score)) %>%
+  mutate(matchup = paste0(teama, " vs. ", teamb),
+         winner = ifelse(teama_score > teamb_score, teama, teamb),
+         loser = ifelse(teama_score > teamb_score, teamb, teama))
+tm_rec <- data.frame(Team = 1:4,
+                     Wins = sapply(1:4, function(x)sum(tm_rec$winner == x)),
+                     Losses = sapply(1:4, function(x)sum(tm_rec$loser == x)),
+                     stringsAsFactors = FALSE)
+tm_rec$Record <- paste0(tm_rec$Wins, " - ", tm_rec$Losses)
+  
 games_w_pts <- df %>%
   select(Game, Player, Team) %>%
   distinct() %>%
@@ -152,8 +164,7 @@ get_bkts_df <- function(df, team_num){
 ```
 Updated on `r Sys.time()`  
 
-## Teams {.tabset .tabset-fade}
-```{r teamlist, echo=FALSE}
+```{r teamlist, echo=FALSE, results='asis'}
 teamdf <- data.frame(`Team 1` = c("Mike B.", "Pat B.", "Ryan B.", "Jason W.",
                                   "Lance J.", "Howie M.", "Steve G.", "Scott S."),
                      `Team 2` = c("Tim K.", "Rubin J.", "Jon T.", "Steve F.", 
@@ -163,12 +174,19 @@ teamdf <- data.frame(`Team 1` = c("Mike B.", "Pat B.", "Ryan B.", "Jason W.",
                      `Team 4` = c("Mike S.", "Mike P.", "Eric V.", "Brian F.",
                                   "Matt S.", "Jon D.", "Ryan C.", "Aaron M."),
                      stringsAsFactors = FALSE)
-kable(teamdf, linesep = "") %>%
+t1 <- kable(teamdf, align = 'c') %>%
   kable_styling(full_width = FALSE,
-                bootstrap_options = c("striped"), 
-                position = "left") 
+                bootstrap_options = c("striped", "condensed")) 
+t2 <- kable(tm_rec, align = 'c') %>%
+  kable_styling(full_width = FALSE,
+                bootstrap_options = c("striped", "condensed")) 
+cat(c('<table><tr valign="top"><td>', t1, '</td>', '<td>', 
+      "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", 
+      '</td>', '<td>', t2, '</td></tr></table>'),
+    sep = '')
 ```
 
+## Teams {.tabset .tabset-fade}
 ### Team 1 
 #### Points
 ```{r team1_pts, echo=FALSE}
