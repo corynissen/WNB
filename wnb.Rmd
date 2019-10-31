@@ -12,7 +12,17 @@ library(tidyr)
 # devtools::install_github("haozhu233/kableExtra")
 library(kableExtra)
 ```
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151254232-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-151254232-1');
+</script>
+</head> 
 ```{r data, include=FALSE, echo=FALSE}
 df <- read.csv("data/individual_scores.csv", stringsAsFactors = FALSE)
 tmsc <- read.csv("data/team_scores.csv", stringsAsFactors = FALSE)
