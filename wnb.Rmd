@@ -17,6 +17,15 @@ library(kableExtra)
 df <- read.csv("data/individual_scores.csv", stringsAsFactors = FALSE)
 tmsc <- read.csv("data/team_scores.csv", stringsAsFactors = FALSE)
 
+getpf <- function(team){
+  sum(tmsc$teama_score[tmsc$teama == team], na.rm = TRUE) +
+    sum(tmsc$teamb_score[tmsc$teamb == team], na.rm = TRUE)
+}
+getpa <- function(team){
+  sum(tmsc$teamb_score[tmsc$teama == team], na.rm = TRUE) +
+    sum(tmsc$teama_score[tmsc$teamb == team], na.rm = TRUE)
+}
+
 tm_rec <- tmsc %>%
   filter(!is.na(teama_score)) %>%
   mutate(matchup = paste0(teama, " vs. ", teamb),
@@ -27,6 +36,9 @@ tm_rec <- data.frame(Team = 1:4,
                      Losses = sapply(1:4, function(x)sum(tm_rec$loser == x)),
                      stringsAsFactors = FALSE)
 tm_rec$Record <- paste0(tm_rec$Wins, " - ", tm_rec$Losses)
+tm_rec$Avg_PF = round(unlist(lapply(1:4, getpf)) / length(unique(tmsc$date[!is.na(tmsc$teama_score)])), 1)
+tm_rec$Avg_PA = round(unlist(lapply(1:4, getpa)) / 
+  length(unique(tmsc$date[!is.na(tmsc$teama_score)])), 1)
   
 games_w_pts <- df %>%
   select(Game, Player, Team) %>%
@@ -162,7 +174,8 @@ get_bkts_df <- function(df, team_num){
   
 }
 ```
-Updated on `r Sys.time()`  
+*Site updated on `r Sys.time()`*  
+*Data updated on `r file.mtime("data/individual_scores.csv")`*  
 
 ```{r teamlist, echo=FALSE, results='asis'}
 teamdf <- data.frame(`Team 1` = c("Mike B.", "Pat B.", "Ryan B.", "Jason W.",
@@ -191,7 +204,7 @@ cat(c('<table><tr valign="top"><td>', t1, '</td>', '<td>',
 #### Points
 ```{r team1_pts, echo=FALSE}
 tm1_pts <- get_pts_df(df, 1)
-kable(tm1_pts, linesep = "") %>%
+kable(tm1_pts, linesep = "", align = 'c') %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm1_pts[tm1_pts$Date %in%
@@ -201,7 +214,7 @@ kable(tm1_pts, linesep = "") %>%
 #### Buckets
 ```{r team1_bkts, echo=FALSE}
 tm1_bkts <- get_bkts_df(df, 1)
-kable(tm1_bkts, linesep = "") %>%
+kable(tm1_bkts, linesep = "", align = 'c') %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm1_bkts[tm1_bkts$Date %in%
@@ -212,7 +225,7 @@ kable(tm1_bkts, linesep = "") %>%
 #### Points
 ```{r team2_pts, echo=FALSE}
 tm2_pts <- get_pts_df(df, 2)
-kable(tm2_pts, linesep = "") %>%
+kable(tm2_pts, linesep = "", align = 'c') %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm2_pts[tm2_pts$Date %in%
@@ -222,7 +235,7 @@ kable(tm2_pts, linesep = "") %>%
 #### Buckets
 ```{r team2_bkts, echo=FALSE}
 tm2_bkts <- get_bkts_df(df, 2)
-kable(tm2_bkts, linesep = "") %>%
+kable(tm2_bkts, linesep = "", align = 'c') %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm2_bkts[tm2_bkts$Date %in%
@@ -233,7 +246,7 @@ kable(tm2_bkts, linesep = "") %>%
 #### Points
 ```{r team3_pts, echo=FALSE}
 tm3_pts <- get_pts_df(df, 3)
-kable(tm3_pts, linesep = "") %>%
+kable(tm3_pts, linesep = "", align = 'c') %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm3_pts[tm3_pts$Date %in%
@@ -243,7 +256,7 @@ kable(tm3_pts, linesep = "") %>%
 #### Buckets
 ```{r team3_bkts, echo=FALSE}
 tm3_bkts <- get_bkts_df(df, 3)
-kable(tm3_bkts, linesep = "") %>%
+kable(tm3_bkts, linesep = "", align = 'c') %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm3_bkts[tm3_bkts$Date %in%
@@ -254,7 +267,7 @@ kable(tm3_bkts, linesep = "") %>%
 #### Points
 ```{r team4_pts, echo=FALSE}
 tm4_pts <- get_pts_df(df, 4)
-kable(tm4_pts, linesep = "") %>%
+kable(tm4_pts, linesep = "", align = 'c') %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm4_pts[tm4_pts$Date %in%
@@ -264,7 +277,7 @@ kable(tm4_pts, linesep = "") %>%
 #### Buckets
 ```{r team4_bkts, echo=FALSE}
 tm4_bkts <- get_bkts_df(df, 4)
-kable(tm4_bkts, linesep = "") %>%
+kable(tm4_bkts, linesep = "", align = 'c') %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm4_bkts[tm4_bkts$Date %in%
