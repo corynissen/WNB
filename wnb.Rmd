@@ -11,6 +11,8 @@ library(dplyr)
 library(tidyr)
 # devtools::install_github("haozhu233/kableExtra")
 library(kableExtra)
+source("ind_pg_funcs.R")
+source("team_pg_funcs.R")
 ```
 <head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -26,167 +28,14 @@ library(kableExtra)
 ```{r data, include=FALSE, echo=FALSE}
 df <- read.csv("data/individual_scores.csv", stringsAsFactors = FALSE)
 tmsc <- read.csv("data/team_scores.csv", stringsAsFactors = FALSE)
-
-getpf <- function(team){
-  sum(tmsc$teama_score[tmsc$teama == team], na.rm = TRUE) +
-    sum(tmsc$teamb_score[tmsc$teamb == team], na.rm = TRUE)
-}
-getpa <- function(team){
-  sum(tmsc$teamb_score[tmsc$teama == team], na.rm = TRUE) +
-    sum(tmsc$teama_score[tmsc$teamb == team], na.rm = TRUE)
-}
-
-tm_rec <- tmsc %>%
-  filter(!is.na(teama_score)) %>%
-  mutate(matchup = paste0(teama, " vs. ", teamb),
-         winner = ifelse(teama_score > teamb_score, teama, teamb),
-         loser = ifelse(teama_score > teamb_score, teamb, teama))
-tm_rec <- data.frame(Team = 1:4,
-                     Wins = sapply(1:4, function(x)sum(tm_rec$winner == x)),
-                     Losses = sapply(1:4, function(x)sum(tm_rec$loser == x)),
-                     stringsAsFactors = FALSE)
-tm_rec$Record <- paste0(tm_rec$Wins, " - ", tm_rec$Losses)
-tm_rec$Avg_PF = round(unlist(lapply(1:4, getpf)) / length(unique(tmsc$date[!is.na(tmsc$teama_score)])), 1)
-tm_rec$Avg_PA = round(unlist(lapply(1:4, getpa)) / 
-  length(unique(tmsc$date[!is.na(tmsc$teama_score)])), 1)
-  
-games_w_pts <- df %>%
-  select(Game, Player, Team) %>%
-  distinct() %>%
-  group_by(Player, Team) %>%
-  summarize(`Games W/ Pts` = length(Game))
-
-get_points <- function(df){
-  tmp <- df %>%
-    group_by(Player) %>%
-    summarize(`Points (2s)` = sum(Score[Score == 2]),
-              `Points (3s)` = sum(Score[Score == 3]),
-              `Total Points` = sum(Score)) %>%
-    t() %>%
-    as.data.frame(stringsAsFactors = FALSE)
-  names(tmp) <- tmp[1,]
-  tmp <- tmp[-1,]
-  tmp$Value <- rownames(tmp)
-  return(tmp)
-}
-
-get_buckets <- function(df){
-  tmp <- df %>%
-    group_by(Player) %>%
-    summarize(`Buckets (2s)` = length(Score[Score == 2]),
-              `Buckets (3s)` = length(Score[Score == 3]),
-              `Total Buckets` = length(Score)) %>%
-    t() %>%
-    as.data.frame(stringsAsFactors = FALSE)
-  names(tmp) <- tmp[1,]
-  tmp <- tmp[-1,]
-  tmp$Value <- rownames(tmp)
-  return(tmp)
-}
-
-get_pts_df <- function(df, team_num){
-  tm_pts <- df %>%  
-    filter(Team == team_num) %>%
-    group_by(Game) %>%
-    group_map(~ get_points(.x)) 
-  names(tm_pts) <- unique(df$Game)
-  date_col <- unlist(lapply(tm_pts, nrow))
-  date_col <- rep(names(date_col), as.numeric(date_col))
-  
-  tm_pts <- do.call(bind_rows, tm_pts)
-  tm_pts$Date <- date_col
-  tm_pts <- tm_pts %>% 
-    select(Date, Value, everything()) %>%
-    replace(is.na(.), 0)
-  # Overall rows...
-  tm_pts <- rbind(tm_pts,
-                   c("Total", "Games W/ Pts",
-                     games_w_pts$`Games W/ Pts`[
-                       match(names(tm_pts)[3:ncol(tm_pts)], games_w_pts$Player)]),
-                   stringsAsFactors = FALSE)
-  
-  tm_ov_tot <- tm_pts %>%
-    filter(Value == "Total Points") %>%
-    select(-Date, -Value) %>%
-    mutate_if(is.character, as.numeric)
-  
-  tm_pts <- rbind(tm_pts,
-                   c("Total", "Total Pts", apply(tm_ov_tot, 2, sum)),
-                   stringsAsFactors = FALSE)
-  
-  tm_pts <- rbind(tm_pts,
-                   c("Total", "Avg Pts",
-                     round(as.numeric(tm_pts[nrow(tm_pts), (3:ncol(tm_pts))]) / 
-                             as.numeric(tm_pts[(nrow(tm_pts) - 1), (3:ncol(tm_pts))]), 1)),
-                   stringsAsFactors = FALSE)
-  return(tm_pts)
-}
-
-get_bkts_df <- function(df, team_num){
-  tm_bkts <- df %>%  
-    filter(Team == team_num) %>%
-    group_by(Game) %>%
-    group_map(~ get_buckets(.x)) 
-  names(tm_bkts) <- unique(df$Game)
-  date_col <- unlist(lapply(tm_bkts, nrow))
-  date_col <- rep(names(date_col), as.numeric(date_col))
-  
-  tm_bkts <- do.call(bind_rows, tm_bkts)
-  tm_bkts$Date <- date_col
-  tm_bkts <- tm_bkts %>% 
-    select(Date, Value, everything()) %>%
-    replace(is.na(.), 0)
-  # Overall rows...
-  tm_bkts <- rbind(tm_bkts,
-                    c("Total", "Games W/ Pts",
-                      games_w_pts$`Games W/ Pts`[match(names(tm_bkts)[3:ncol(tm_bkts)],                           games_w_pts$Player)]),
-                    stringsAsFactors = FALSE)
-  
-  tm_ov_tot <- tm_bkts %>%
-    filter(Value == "Total Buckets") %>%
-    select(-Date, -Value) %>%
-    mutate_if(is.character, as.numeric)
-  
-  tm_ov_2 <- tm_bkts %>%
-    filter(Value == "Buckets (2s)") %>%
-    select(-Date, -Value) %>%
-    mutate_if(is.character, as.numeric)
-  
-  tm_ov_3 <- tm_bkts %>%
-    filter(Value == "Buckets (3s)") %>%
-    select(-Date, -Value) %>%
-    mutate_if(is.character, as.numeric)
-  
-  tm_bkts <- rbind(tm_bkts,
-                    c("Total", "Total Bkts", apply(tm_ov_tot, 2, sum)),
-                    stringsAsFactors = FALSE)
-  
-  tm_bkts <- rbind(tm_bkts,
-                    c("Total", "Total 2s", apply(tm_ov_2, 2, sum)),
-                    stringsAsFactors = FALSE)
-  
-  tm_bkts <- rbind(tm_bkts,
-                    c("Total", "Total 3s", apply(tm_ov_3, 2, sum)),
-                    stringsAsFactors = FALSE)
-  
-  tm_bkts <- rbind(tm_bkts,
-                    c("Total", "Avg 2s",
-                      round(as.numeric(tm_bkts[(nrow(tm_bkts) - 1), (3:ncol(tm_bkts))]) /
-                              as.numeric(tm_bkts[(nrow(tm_bkts) - 3), (3:ncol(tm_bkts))]), 1)),
-                    stringsAsFactors = FALSE)
-  
-  tm_bkts <- rbind(tm_bkts,
-                    c("Total", "Avg 3s",
-                      round(as.numeric(tm_bkts[(nrow(tm_bkts) - 1), (3:ncol(tm_bkts))]) /
-                              as.numeric(tm_bkts[(nrow(tm_bkts) - 4), (3:ncol(tm_bkts))]), 1)),
-                    stringsAsFactors = FALSE)
-  return(tm_bkts)
-  
-}
+games_w_pts <- get_games_w_pts(df)
+tm_rec <- get_team_rec(tmsc)
 ```
-*Site updated on `r Sys.time()`*  
-*Data updated on `r file.mtime("data/individual_scores.csv")`*  
 
+*Site updated on `r Sys.time()`&nbsp;&nbsp;&nbsp;&nbsp; Data updated on `r file.mtime("data/individual_scores.csv")`*  
+Official 2019-2020 WNB Schedule and Rules [word doc](https://drive.google.com/open?id=0Bz0dMuGXr7v5b0E4VU5pMlBGR0JZRWtIM005OTFCQjlha29n)    
+  
+# Teams {.tabset .tabset-fade}   
 ```{r teamlist, echo=FALSE, results='asis'}
 teamdf <- data.frame(`Team 1` = c("Mike B.", "Pat B.", "Ryan B.", "Jason W.",
                                   "Lance J.", "Howie M.", "Steve G.", "Scott S."),
@@ -209,8 +58,14 @@ cat(c('<table><tr valign="top"><td>', t1, '</td>', '<td>',
     sep = '')
 ```
 
-## Teams {.tabset .tabset-fade}
-### Team 1 
+## Team 1 {.tabset .tabset-fade} 
+### Team Stats 
+```{r team1_sched, echo=FALSE}
+kable(get_team_results(tmsc, 1), align = 'c', escape = FALSE) %>%
+  kable_styling(full_width = FALSE,
+                bootstrap_options = c("striped", "condensed")) 
+```
+### Individual Stats 
 #### Points
 ```{r team1_pts, echo=FALSE}
 tm1_pts <- get_pts_df(df, 1)
@@ -231,7 +86,14 @@ kable(tm1_bkts, linesep = "", align = 'c') %>%
                                 unique(tm1_bkts$Date)[c(TRUE, FALSE)],])),
            background = "#f8f8f8")
 ```
-### Team 2 
+## Team 2 {.tabset .tabset-fade} 
+### Team Stats 
+```{r team2_sched, echo=FALSE}
+kable(get_team_results(tmsc, 2), align = 'c', escape = FALSE) %>%
+  kable_styling(full_width = FALSE,
+                bootstrap_options = c("striped", "condensed")) 
+```
+### Individual Stats 
 #### Points
 ```{r team2_pts, echo=FALSE}
 tm2_pts <- get_pts_df(df, 2)
@@ -252,7 +114,14 @@ kable(tm2_bkts, linesep = "", align = 'c') %>%
                                 unique(tm2_bkts$Date)[c(TRUE, FALSE)],])),
            background = "#f8f8f8")
 ```
-### Team 3 
+## Team 3 {.tabset .tabset-fade} 
+### Team Stats  
+```{r team3_sched, echo=FALSE}
+kable(get_team_results(tmsc, 3), align = 'c', escape = FALSE) %>%
+  kable_styling(full_width = FALSE,
+                bootstrap_options = c("striped", "condensed")) 
+```
+### Individual Stats 
 #### Points
 ```{r team3_pts, echo=FALSE}
 tm3_pts <- get_pts_df(df, 3)
@@ -273,7 +142,14 @@ kable(tm3_bkts, linesep = "", align = 'c') %>%
                                 unique(tm3_bkts$Date)[c(TRUE, FALSE)],])),
            background = "#f8f8f8")
 ```
-### Team 4 
+## Team 4 {.tabset .tabset-fade} 
+### Team Stats  
+```{r team4_sched, echo=FALSE}
+kable(get_team_results(tmsc, 4), align = 'c', escape = FALSE) %>%
+  kable_styling(full_width = FALSE,
+                bootstrap_options = c("striped", "condensed")) 
+```
+### Individual Stats 
 #### Points
 ```{r team4_pts, echo=FALSE}
 tm4_pts <- get_pts_df(df, 4)
