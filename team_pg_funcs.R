@@ -36,9 +36,11 @@ get_team_results <- function(tmsc, team_num){
     mutate(scoresheet_link = ifelse(scoresheet != "",
                                     cell_spec("Scoresheet Link", "html", link = scoresheet),
                                     ""),
+           winner = ifelse(teama_score > teamb_score, teama, teamb),
+           color = ifelse(winner == team_num, "#C8E9C2", "#E9C2C2"),
            teama_score = ifelse(is.na(teama_score), "", teama_score),
            teamb_score = ifelse(is.na(teamb_score), "", teamb_score)) %>%
     select(Date = date, Time = time, TeamA = teama, TeamB = teamb,
            TeamA_Score = teama_score, TeamB_Score = teamb_score,
-           Scoresheet_Link = scoresheet_link, Notes = note)
+           Scoresheet_Link = scoresheet_link, Notes = note, color=color)
 }

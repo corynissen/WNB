@@ -61,9 +61,12 @@ cat(c('<table><tr valign="top"><td>', t1, '</td>', '<td>',
 ## Team 1 {.tabset .tabset-fade} 
 ### Team Stats 
 ```{r team1_sched, echo=FALSE}
-kable(get_team_results(tmsc, 1), align = 'c', escape = FALSE) %>%
+tm1_results <- get_team_results(tmsc, 1)
+kable(tm1_results[, names(tm1_results) != "color"], align = 'c', escape = FALSE) %>%
   kable_styling(full_width = FALSE,
-                bootstrap_options = c("striped", "condensed")) 
+                bootstrap_options = c("condensed")) %>% 
+  row_spec(which(tm1_results$color == "#C8E9C2"), background = "#C8E9C2") %>%
+  row_spec(which(tm1_results$color == "#E9C2C2"), background = "#E9C2C2")
 ```
 ### Individual Stats 
 #### Points
@@ -89,9 +92,12 @@ kable(tm1_bkts, linesep = "", align = 'c') %>%
 ## Team 2 {.tabset .tabset-fade} 
 ### Team Stats 
 ```{r team2_sched, echo=FALSE}
-kable(get_team_results(tmsc, 2), align = 'c', escape = FALSE) %>%
+tm2_results <- get_team_results(tmsc, 2)
+kable(tm2_results[, names(tm2_results) != "color"], align = 'c', escape = FALSE) %>%
   kable_styling(full_width = FALSE,
-                bootstrap_options = c("striped", "condensed")) 
+                bootstrap_options = c("condensed")) %>% 
+  row_spec(which(tm2_results$color == "#C8E9C2"), background = "#C8E9C2") %>%
+  row_spec(which(tm2_results$color == "#E9C2C2"), background = "#E9C2C2")
 ```
 ### Individual Stats 
 #### Points
@@ -117,9 +123,12 @@ kable(tm2_bkts, linesep = "", align = 'c') %>%
 ## Team 3 {.tabset .tabset-fade} 
 ### Team Stats  
 ```{r team3_sched, echo=FALSE}
-kable(get_team_results(tmsc, 3), align = 'c', escape = FALSE) %>%
+tm3_results <- get_team_results(tmsc, 3)
+kable(tm3_results[, names(tm3_results) != "color"], align = 'c', escape = FALSE) %>%
   kable_styling(full_width = FALSE,
-                bootstrap_options = c("striped", "condensed")) 
+                bootstrap_options = c("condensed")) %>% 
+  row_spec(which(tm3_results$color == "#C8E9C2"), background = "#C8E9C2") %>%
+  row_spec(which(tm3_results$color == "#E9C2C2"), background = "#E9C2C2")
 ```
 ### Individual Stats 
 #### Points
@@ -145,9 +154,12 @@ kable(tm3_bkts, linesep = "", align = 'c') %>%
 ## Team 4 {.tabset .tabset-fade} 
 ### Team Stats  
 ```{r team4_sched, echo=FALSE}
-kable(get_team_results(tmsc, 4), align = 'c', escape = FALSE) %>%
+tm4_results <- get_team_results(tmsc, 4)
+kable(tm4_results[, names(tm4_results) != "color"], align = 'c', escape = FALSE) %>%
   kable_styling(full_width = FALSE,
-                bootstrap_options = c("striped", "condensed")) 
+                bootstrap_options = c("condensed")) %>% 
+  row_spec(which(tm4_results$color == "#C8E9C2"), background = "#C8E9C2") %>%
+  row_spec(which(tm4_results$color == "#E9C2C2"), background = "#E9C2C2")
 ```
 ### Individual Stats 
 #### Points
