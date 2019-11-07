@@ -27,6 +27,7 @@ source("team_pg_funcs.R")
 </head> 
 ```{r data, include=FALSE, echo=FALSE}
 df <- read.csv("data/individual_scores.csv", stringsAsFactors = FALSE)
+df <- df[!is.na(df$Game) & df$Game!="", ]
 tmsc <- read.csv("data/team_scores.csv", stringsAsFactors = FALSE)
 games_w_pts <- get_games_w_pts(df)
 tm_rec <- get_team_rec(tmsc)
