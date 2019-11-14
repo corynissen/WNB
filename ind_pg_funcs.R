@@ -43,9 +43,10 @@ get_buckets <- function(df){
 get_pts_df <- function(df, team_num){
   tm_pts <- df %>%  
     filter(Team == team_num) %>%
-    group_by(Game) %>%
+    mutate(game_date = mdy(Game)) %>%
+    group_by(game_date) %>%
     group_map(~ get_points(.x)) 
-  names(tm_pts) <- unique(df$Game)
+  names(tm_pts) <- unique(df$Game[df$Team == team_num])
   date_col <- unlist(lapply(tm_pts, nrow))
   date_col <- rep(names(date_col), as.numeric(date_col))
   
@@ -83,9 +84,10 @@ get_pts_df <- function(df, team_num){
 get_bkts_df <- function(df, team_num){
   tm_bkts <- df %>%  
     filter(Team == team_num) %>%
-    group_by(Game) %>%
+    mutate(game_date = mdy(Game)) %>%
+    group_by(game_date) %>%
     group_map(~ get_buckets(.x)) 
-  names(tm_bkts) <- unique(df$Game)
+  names(tm_bkts) <- unique(df$Game[df$Team == team_num])
   date_col <- unlist(lapply(tm_bkts, nrow))
   date_col <- rep(names(date_col), as.numeric(date_col))
   

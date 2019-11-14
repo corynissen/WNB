@@ -11,6 +11,7 @@ library(dplyr)
 library(tidyr)
 # devtools::install_github("haozhu233/kableExtra")
 library(kableExtra)
+library(lubridate)
 source("ind_pg_funcs.R")
 source("team_pg_funcs.R")
 ```
@@ -21,7 +22,6 @@ source("team_pg_funcs.R")
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'UA-151254232-1');
 </script>
 </head> 
