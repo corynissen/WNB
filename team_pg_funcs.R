@@ -22,10 +22,10 @@ get_team_rec <- function(tmsc){
                        Wins = sapply(1:4, function(x)sum(tm_rec$winner == x)),
                        Losses = sapply(1:4, function(x)sum(tm_rec$loser == x)),
                        stringsAsFactors = FALSE)
+  games_by_team <- tm_rec$Wins + tm_rec$Losses
   tm_rec$Record <- paste0(tm_rec$Wins, " - ", tm_rec$Losses)
-  tm_rec$Avg_PF = round(unlist(lapply(1:4, getpf)) / length(unique(tmsc$date[!is.na(tmsc$teama_score)])), 1)
-  tm_rec$Avg_PA = round(unlist(lapply(1:4, getpa)) / 
-                          length(unique(tmsc$date[!is.na(tmsc$teama_score)])), 1)
+  tm_rec$Avg_PF = round(unlist(lapply(1:4, getpf)) / games_by_team, 1)
+  tm_rec$Avg_PA = round(unlist(lapply(1:4, getpa)) / games_by_team, 1)
   return(tm_rec)
 }
 
