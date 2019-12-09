@@ -34,7 +34,7 @@ tm_rec <- get_team_rec(tmsc)
 ```
 
 *Site updated on `r Sys.time()`&nbsp;&nbsp;&nbsp;&nbsp; Data updated on `r file.mtime("data/individual_scores.csv")`*  
-Official 2019-2020 WNB Schedule and Rules [word doc](https://drive.google.com/open?id=0Bz0dMuGXr7v5b0E4VU5pMlBGR0JZRWtIM005OTFCQjlha29n)    
+Official 2019-2020 WNB Schedule and Rules [word doc](https://drive.google.com/open?id=0Bz0dMuGXr7v5Nnc3YjNXT01UcElHX2VCVmtVZkJ0d0FUSXdZ)    
   
 # Teams {.tabset .tabset-fade}   
 ```{r teamlist, echo=FALSE, results='asis'}
@@ -43,9 +43,9 @@ teamdf <- data.frame(`Team 1` = c("Mike B.", "Pat B.", "Ryan B.", "Jason W.",
                      `Team 2` = c("Tim K.", "Rubin J.", "Jon T.", "Steve F.", 
                                   "Chris T.", "Brian H.", "Jay L.", "Pat C."),
                      `Team 3` = c("Mike W.", "Frankie C.", "Andy W.", "Adam B.",
-                                  "Danny S.", "Joel E.", "Cory N.", "Mike S."),
+                                  "Danny S.", "Joel E.", "Cory N.", "Mike S.", "Jim L."),
                      `Team 4` = c("Mike S.", "Mike P.", "Eric V.", "Brian F.",
-                                  "Matt S.", "Jon D.", "Ryan C.", "Aaron M."),
+                                  "Matt S.", "Jon D.", "Ryan C.", "James E."),
                      stringsAsFactors = FALSE)
 t1 <- kable(teamdf, align = 'c') %>%
   kable_styling(full_width = FALSE,
