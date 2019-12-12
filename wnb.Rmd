@@ -39,13 +39,13 @@ Official 2019-2020 WNB Schedule and Rules [word doc](https://drive.google.com/op
 # Teams {.tabset .tabset-fade}   
 ```{r teamlist, echo=FALSE, results='asis'}
 teamdf <- data.frame(`Team 1` = c("Mike B.", "Pat B.", "Ryan B.", "Jason W.",
-                                  "Lance J.", "Howie M.", "Steve G.", "Scott S."),
+                                  "Lance J.", "Howie M.", "Steve G.", "Scott S.", ""),
                      `Team 2` = c("Tim K.", "Rubin J.", "Jon T.", "Steve F.", 
-                                  "Chris T.", "Brian H.", "Jay L.", "Pat C."),
+                                  "Chris T.", "Brian H.", "Jay L.", "Pat C.", ""),
                      `Team 3` = c("Mike W.", "Frankie C.", "Andy W.", "Adam B.",
                                   "Danny S.", "Joel E.", "Cory N.", "Mike S.", "Jim L."),
                      `Team 4` = c("Mike S.", "Mike P.", "Eric V.", "Brian F.",
-                                  "Matt S.", "Jon D.", "Ryan C.", "James E."),
+                                  "Matt S.", "Jon D.", "Ryan C.", "James E.", ""),
                      stringsAsFactors = FALSE)
 t1 <- kable(teamdf, align = 'c') %>%
   kable_styling(full_width = FALSE,
