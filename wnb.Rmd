@@ -78,7 +78,8 @@ kable(tm1_pts, linesep = "", align = 'c') %>%
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm1_pts[tm1_pts$Date %in%
                                 unique(tm1_pts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8")
+           background = "#f8f8f8") %>%
+  scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
 ```{r team1_bkts, echo=FALSE}
@@ -88,7 +89,8 @@ kable(tm1_bkts, linesep = "", align = 'c') %>%
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm1_bkts[tm1_bkts$Date %in%
                                 unique(tm1_bkts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8")
+           background = "#f8f8f8") %>%
+  scroll_box(width = "100%", height = "500px")
 ```
 ## Team 2 {.tabset .tabset-fade} 
 ### Team Stats 
@@ -109,7 +111,8 @@ kable(tm2_pts, linesep = "", align = 'c') %>%
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm2_pts[tm2_pts$Date %in%
                                 unique(tm2_pts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8")
+           background = "#f8f8f8") %>%
+  scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
 ```{r team2_bkts, echo=FALSE}
@@ -119,7 +122,8 @@ kable(tm2_bkts, linesep = "", align = 'c') %>%
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm2_bkts[tm2_bkts$Date %in%
                                 unique(tm2_bkts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8")
+           background = "#f8f8f8") %>%
+  scroll_box(width = "100%", height = "500px")
 ```
 ## Team 3 {.tabset .tabset-fade} 
 ### Team Stats  
@@ -140,7 +144,8 @@ kable(tm3_pts, linesep = "", align = 'c') %>%
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm3_pts[tm3_pts$Date %in%
                                 unique(tm3_pts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8")
+           background = "#f8f8f8") %>%
+  scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
 ```{r team3_bkts, echo=FALSE}
@@ -150,7 +155,8 @@ kable(tm3_bkts, linesep = "", align = 'c') %>%
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm3_bkts[tm3_bkts$Date %in%
                                 unique(tm3_bkts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8")
+           background = "#f8f8f8") %>%
+  scroll_box(width = "100%", height = "500px")
 ```
 ## Team 4 {.tabset .tabset-fade} 
 ### Team Stats  
@@ -171,7 +177,8 @@ kable(tm4_pts, linesep = "", align = 'c') %>%
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm4_pts[tm4_pts$Date %in%
                                 unique(tm4_pts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8")
+           background = "#f8f8f8") %>%
+  scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
 ```{r team4_bkts, echo=FALSE}
@@ -181,7 +188,8 @@ kable(tm4_bkts, linesep = "", align = 'c') %>%
                 bootstrap_options = c("condensed")) %>%
   row_spec(as.numeric(row.names(tm4_bkts[tm4_bkts$Date %in%
                                 unique(tm4_bkts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8")
+           background = "#f8f8f8") %>%
+  scroll_box(width = "100%", height = "500px")
 ```
 
 
