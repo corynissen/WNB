@@ -38,16 +38,14 @@ Official 2019-2020 WNB Schedule and Rules [word doc](https://drive.google.com/op
   
 # Teams {.tabset .tabset-fade}   
 ```{r teamlist, echo=FALSE, results='asis'}
-teamdf <- data.frame(`Team 1` = c("Mike B.", "Pat B.", "Ryan B.", "Jason W.",
-                                  "Lance J.", "Howie M.", "Steve G.", "Scott S.",
-                                  "Ryan C."),
-                     `Team 2` = c("Tim K.", "Rubin J.", "Jon T.", "Steve F.", 
-                                  "Chris T.", "Brian H.", "Jay L.", "Pat C.", ""),
-                     `Team 3` = c("Mike W.", "Frankie C.", "Andy W.", "Adam B.",
-                                  "Danny S.", "Joel E.", "Cory N.", "Mike S.", 
-                                  "Jim L."),
-                     `Team 4` = c("Mike S.", "Mike P.", "Eric V.", "Brian F.",
-                                  "Matt S.", "Jon D.", "James E.", "Jordan F.", ""),
+teamdf <- data.frame(`Team 1` = c("Jon D.", "Lance J.", "Ryan B.", "Brett J.",
+                                  "Scott S.", "Mike B.", "Eric V.", "Mike W."),
+                     `Team 2` = c("Mark S.", "Jay L.", "Ryan J.", "Chris L.", 
+                                  "Briah H.", "Danny S.", "Chris T.", "Pat C."),
+                     `Team 3` = c("Cory N.", "Pat B.", "Mike P.", "Mike S.",
+                                  "Drew E.", "Alex P.", "Eric P.", "Steve F."),
+                     `Team 4` = c("Frankie C.", "Jon T.", "Jordan F.", "Aaron M.",
+                                  "John R.", "Jason W.", "Andy W.", "Marcelo D."),
                      stringsAsFactors = FALSE)
 t1 <- kable(teamdf, align = 'c') %>%
   kable_styling(full_width = FALSE,
@@ -75,23 +73,23 @@ kable(tm1_results[, names(tm1_results) != "color"], align = 'c', escape = FALSE)
 #### Points
 ```{r team1_pts, echo=FALSE}
 tm1_pts <- get_pts_df(df, 1)
-kable(tm1_pts, linesep = "", align = 'c') %>%
+kable(tm1_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  row_spec(as.numeric(row.names(tm1_pts[tm1_pts$Date %in%
-                                unique(tm1_pts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8") %>%
+  # row_spec(as.numeric(row.names(tm1_pts[tm1_pts$Date %in%
+  #                               unique(tm1_pts$Date)[c(TRUE, FALSE)],])),
+  #          background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
 ```{r team1_bkts, echo=FALSE}
 tm1_bkts <- get_bkts_df(df, 1)
-kable(tm1_bkts, linesep = "", align = 'c') %>%
+kable(tm1_bkts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  row_spec(as.numeric(row.names(tm1_bkts[tm1_bkts$Date %in%
-                                unique(tm1_bkts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8") %>%
+  # row_spec(as.numeric(row.names(tm1_bkts[tm1_bkts$Date %in%
+  #                               unique(tm1_bkts$Date)[c(TRUE, FALSE)],])),
+  #          background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 ## Team 2 {.tabset .tabset-fade} 
@@ -108,23 +106,23 @@ kable(tm2_results[, names(tm2_results) != "color"], align = 'c', escape = FALSE)
 #### Points
 ```{r team2_pts, echo=FALSE}
 tm2_pts <- get_pts_df(df, 2)
-kable(tm2_pts, linesep = "", align = 'c') %>%
+kable(tm2_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  row_spec(as.numeric(row.names(tm2_pts[tm2_pts$Date %in%
-                                unique(tm2_pts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8") %>%
+  # row_spec(as.numeric(row.names(tm2_pts[tm2_pts$Date %in%
+  #                               unique(tm2_pts$Date)[c(TRUE, FALSE)],])),
+  #          background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
 ```{r team2_bkts, echo=FALSE}
 tm2_bkts <- get_bkts_df(df, 2)
-kable(tm2_bkts, linesep = "", align = 'c') %>%
+kable(tm2_bkts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  row_spec(as.numeric(row.names(tm2_bkts[tm2_bkts$Date %in%
-                                unique(tm2_bkts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8") %>%
+  # row_spec(as.numeric(row.names(tm2_bkts[tm2_bkts$Date %in%
+  #                               unique(tm2_bkts$Date)[c(TRUE, FALSE)],])),
+  #          background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 ## Team 3 {.tabset .tabset-fade} 
@@ -141,23 +139,23 @@ kable(tm3_results[, names(tm3_results) != "color"], align = 'c', escape = FALSE)
 #### Points
 ```{r team3_pts, echo=FALSE}
 tm3_pts <- get_pts_df(df, 3)
-kable(tm3_pts, linesep = "", align = 'c') %>%
+kable(tm3_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  row_spec(as.numeric(row.names(tm3_pts[tm3_pts$Date %in%
-                                unique(tm3_pts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8") %>%
+  # row_spec(as.numeric(row.names(tm3_pts[tm3_pts$Date %in%
+  #                               unique(tm3_pts$Date)[c(TRUE, FALSE)],])),
+  #          background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
 ```{r team3_bkts, echo=FALSE}
 tm3_bkts <- get_bkts_df(df, 3)
-kable(tm3_bkts, linesep = "", align = 'c') %>%
+kable(tm3_bkts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  row_spec(as.numeric(row.names(tm3_bkts[tm3_bkts$Date %in%
-                                unique(tm3_bkts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8") %>%
+  # row_spec(as.numeric(row.names(tm3_bkts[tm3_bkts$Date %in%
+  #                               unique(tm3_bkts$Date)[c(TRUE, FALSE)],])),
+  #          background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 ## Team 4 {.tabset .tabset-fade} 
@@ -174,23 +172,23 @@ kable(tm4_results[, names(tm4_results) != "color"], align = 'c', escape = FALSE)
 #### Points
 ```{r team4_pts, echo=FALSE}
 tm4_pts <- get_pts_df(df, 4)
-kable(tm4_pts, linesep = "", align = 'c') %>%
+kable(tm4_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  row_spec(as.numeric(row.names(tm4_pts[tm4_pts$Date %in%
-                                unique(tm4_pts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8") %>%
+  # row_spec(as.numeric(row.names(tm4_pts[tm4_pts$Date %in%
+  #                               unique(tm4_pts$Date)[c(TRUE, FALSE)],])),
+  #          background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
 ```{r team4_bkts, echo=FALSE}
 tm4_bkts <- get_bkts_df(df, 4)
-kable(tm4_bkts, linesep = "", align = 'c') %>%
+kable(tm4_bkts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  row_spec(as.numeric(row.names(tm4_bkts[tm4_bkts$Date %in%
-                                unique(tm4_bkts$Date)[c(TRUE, FALSE)],])),
-           background = "#f8f8f8") %>%
+  # row_spec(as.numeric(row.names(tm4_bkts[tm4_bkts$Date %in%
+  #                               unique(tm4_bkts$Date)[c(TRUE, FALSE)],])),
+  #          background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 
