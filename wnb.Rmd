@@ -71,7 +71,7 @@ kable(tm1_results[, names(tm1_results) != "color"], align = 'c', escape = FALSE)
 ```
 ### Individual Stats 
 #### Points
-```{r team1_pts, echo=FALSE}
+```{r team1_pts, echo=FALSE, warning = FALSE, message = FALSE}
 tm1_pts <- get_pts_df(df, 1)
 kable(tm1_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
@@ -82,7 +82,7 @@ kable(tm1_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
-```{r team1_bkts, echo=FALSE}
+```{r team1_bkts, echo=FALSE, warning = FALSE, message = FALSE}
 tm1_bkts <- get_bkts_df(df, 1)
 kable(tm1_bkts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
@@ -104,7 +104,7 @@ kable(tm2_results[, names(tm2_results) != "color"], align = 'c', escape = FALSE)
 ```
 ### Individual Stats 
 #### Points
-```{r team2_pts, echo=FALSE}
+```{r team2_pts, echo=FALSE, warning = FALSE, message = FALSE}
 tm2_pts <- get_pts_df(df, 2)
 kable(tm2_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
@@ -115,7 +115,7 @@ kable(tm2_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
-```{r team2_bkts, echo=FALSE}
+```{r team2_bkts, echo=FALSE, warning = FALSE, message = FALSE}
 tm2_bkts <- get_bkts_df(df, 2)
 kable(tm2_bkts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
@@ -137,7 +137,7 @@ kable(tm3_results[, names(tm3_results) != "color"], align = 'c', escape = FALSE)
 ```
 ### Individual Stats 
 #### Points
-```{r team3_pts, echo=FALSE}
+```{r team3_pts, echo=FALSE, warning = FALSE, message = FALSE}
 tm3_pts <- get_pts_df(df, 3)
 kable(tm3_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
@@ -148,7 +148,7 @@ kable(tm3_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
-```{r team3_bkts, echo=FALSE}
+```{r team3_bkts, echo=FALSE, warning = FALSE, message = FALSE}
 tm3_bkts <- get_bkts_df(df, 3)
 kable(tm3_bkts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
@@ -170,7 +170,7 @@ kable(tm4_results[, names(tm4_results) != "color"], align = 'c', escape = FALSE)
 ```
 ### Individual Stats 
 #### Points
-```{r team4_pts, echo=FALSE}
+```{r team4_pts, echo=FALSE, warning = FALSE, message = FALSE}
 tm4_pts <- get_pts_df(df, 4)
 kable(tm4_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
@@ -181,7 +181,7 @@ kable(tm4_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
-```{r team4_bkts, echo=FALSE}
+```{r team4_bkts, echo=FALSE, warning = FALSE, message = FALSE}
 tm4_bkts <- get_bkts_df(df, 4)
 kable(tm4_bkts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
