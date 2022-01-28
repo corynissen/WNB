@@ -41,7 +41,7 @@ Official 2019-2020 WNB Schedule and Rules [word doc](https://drive.google.com/op
 teamdf <- data.frame(`Team 1` = c("Jon D.", "Lance J.", "Ryan B.", "Brett J.",
                                   "Scott S.", "Mike B.", "Eric V.", "Mike W."),
                      `Team 2` = c("Mark S.", "Jay L.", "Ryan J.", "Chris L.", 
-                                  "Briah H.", "Danny S.", "Chris T.", "Pat C."),
+                                  "Brian H.", "Danny S.", "Chris T.", "Pat C."),
                      `Team 3` = c("Cory N.", "Pat B.", "Mike P.", "Mike S.",
                                   "Drew E.", "Alex P.", "Eric P.", "Steve F."),
                      `Team 4` = c("Frankie C.", "Jon T.", "Jordan F.", "Aaron M.",
@@ -76,9 +76,12 @@ tm1_pts <- get_pts_df(df, 1)
 kable(tm1_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  # row_spec(as.numeric(row.names(tm1_pts[tm1_pts$Date %in%
-  #                               unique(tm1_pts$Date)[c(TRUE, FALSE)],])),
-  #          background = "#f8f8f8") %>%
+   # row_spec(which(row.names(tm1_pts[tm1_pts$Date %in%
+   #                               unique(tm1_pts$Date)[c(TRUE, FALSE)],])),
+   #          background = "#f8f8f8") %>%
+
+  row_spec(which(rownames(tm1_pts) %in% rownames(tm1_pts[tm1_pts$Date %in% unique(tm1_pts$Date)[c(TRUE, FALSE) == TRUE], ])),
+            background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
@@ -87,9 +90,9 @@ tm1_bkts <- get_bkts_df(df, 1)
 kable(tm1_bkts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  # row_spec(as.numeric(row.names(tm1_bkts[tm1_bkts$Date %in%
-  #                               unique(tm1_bkts$Date)[c(TRUE, FALSE)],])),
-  #          background = "#f8f8f8") %>%
+  row_spec(which(row.names(tm1_bkts) %in% row.names(tm1_bkts[tm1_bkts$Date %in%
+                                unique(tm1_bkts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 ## Team 2 {.tabset .tabset-fade} 
@@ -109,9 +112,9 @@ tm2_pts <- get_pts_df(df, 2)
 kable(tm2_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  # row_spec(as.numeric(row.names(tm2_pts[tm2_pts$Date %in%
-  #                               unique(tm2_pts$Date)[c(TRUE, FALSE)],])),
-  #          background = "#f8f8f8") %>%
+  row_spec(which(row.names(tm2_pts) %in% row.names(tm2_pts[tm2_pts$Date %in%
+                                unique(tm2_pts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
@@ -120,9 +123,9 @@ tm2_bkts <- get_bkts_df(df, 2)
 kable(tm2_bkts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  # row_spec(as.numeric(row.names(tm2_bkts[tm2_bkts$Date %in%
-  #                               unique(tm2_bkts$Date)[c(TRUE, FALSE)],])),
-  #          background = "#f8f8f8") %>%
+  row_spec(which(row.names(tm2_bkts) %in% row.names(tm2_bkts[tm2_bkts$Date %in%
+                                unique(tm2_bkts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 ## Team 3 {.tabset .tabset-fade} 
@@ -142,9 +145,9 @@ tm3_pts <- get_pts_df(df, 3)
 kable(tm3_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  # row_spec(as.numeric(row.names(tm3_pts[tm3_pts$Date %in%
-  #                               unique(tm3_pts$Date)[c(TRUE, FALSE)],])),
-  #          background = "#f8f8f8") %>%
+  row_spec(which(row.names(tm3_pts) %in% row.names(tm3_pts[tm3_pts$Date %in%
+                                unique(tm3_pts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
@@ -153,9 +156,9 @@ tm3_bkts <- get_bkts_df(df, 3)
 kable(tm3_bkts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  # row_spec(as.numeric(row.names(tm3_bkts[tm3_bkts$Date %in%
-  #                               unique(tm3_bkts$Date)[c(TRUE, FALSE)],])),
-  #          background = "#f8f8f8") %>%
+  row_spec(which(row.names(tm3_bkts) %in% row.names(tm3_bkts[tm3_bkts$Date %in%
+                                unique(tm3_bkts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 ## Team 4 {.tabset .tabset-fade} 
@@ -175,9 +178,9 @@ tm4_pts <- get_pts_df(df, 4)
 kable(tm4_pts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  # row_spec(as.numeric(row.names(tm4_pts[tm4_pts$Date %in%
-  #                               unique(tm4_pts$Date)[c(TRUE, FALSE)],])),
-  #          background = "#f8f8f8") %>%
+  row_spec(which(row.names(tm4_pts) %in% row.names(tm4_pts[tm4_pts$Date %in%
+                                unique(tm4_pts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 #### Buckets
@@ -186,9 +189,9 @@ tm4_bkts <- get_bkts_df(df, 4)
 kable(tm4_bkts, linesep = "", align = 'c', row.names = FALSE) %>%
   kable_styling(full_width = TRUE,
                 bootstrap_options = c("condensed")) %>%
-  # row_spec(as.numeric(row.names(tm4_bkts[tm4_bkts$Date %in%
-  #                               unique(tm4_bkts$Date)[c(TRUE, FALSE)],])),
-  #          background = "#f8f8f8") %>%
+  row_spec(which(row.names(tm4_bkts) %in% row.names(tm4_bkts[tm4_bkts$Date %in%
+                                unique(tm4_bkts$Date)[c(TRUE, FALSE)],])),
+           background = "#f8f8f8") %>%
   scroll_box(width = "100%", height = "500px")
 ```
 
