@@ -43,9 +43,9 @@ teamdf <- data.frame(`Team 1` = c("Jon D.", "Lance J.", "Ryan B.", "Brett J.",
                      `Team 2` = c("Mark S.", "Jay L.", "Ryan J.", "Chris L.", 
                                   "Brian H.", "Danny S.", "Chris T.", "Pat C."),
                      `Team 3` = c("Cory N.", "Pat B.", "Mike P.", "Mike S.",
-                                  "Drew E.", "Alex P.", "Eric P.", "Steve F."),
+                                  "John R.", "Alex P.", "Eric P.", "Steve F."),
                      `Team 4` = c("Frankie C.", "Jon T.", "Jordan F.", "Aaron M.",
-                                  "John R.", "Jason W.", "Andy W.", "Marcelo D."),
+                                  "Drew E.", "Jason W.", "Andy W.", "Marcelo D."),
                      stringsAsFactors = FALSE)
 t1 <- kable(teamdf, align = 'c') %>%
   kable_styling(full_width = FALSE,
